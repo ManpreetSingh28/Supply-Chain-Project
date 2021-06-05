@@ -1,0 +1,41 @@
+========================================================== To install chaincode in org 1 ==================================================
+
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+CORE_PEER_LOCALMSPID="Org1MSP"
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+
+peer chaincode install -n mycc -v 1.0 -l node -p /opt/gopath/src/github.com/chaincode/supply-chain1/node/
+
+
+======================================================== To install chaincode in org 2   ======================================================
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+CORE_PEER_ADDRESS=peer0.org2.example.com:9051
+CORE_PEER_LOCALMSPID="Org2MSP"
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+
+peer chaincode install -n mycc -v 1.0 -l node -p /opt/gopath/src/github.com/chaincode/supply-chain1/node/
+
+======================================================== To install chaincode in org 3   ======================================================
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp
+CORE_PEER_ADDRESS=peer0.org3.example.com:11051
+CORE_PEER_LOCALMSPID="Org3MSP"
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt
+
+peer chaincode install -n mycc -v 1.0 -l node -p /opt/gopath/src/github.com/chaincode/supply-chain1/node/
+
+======================================================== To install chaincode in org 4   ======================================================
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org4.example.com/users/Admin@org4.example.com/msp
+CORE_PEER_ADDRESS=peer0.org4.example.com:13051
+CORE_PEER_LOCALMSPID="Org4MSP"
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org4.example.com/peers/peer0.org4.example.com/tls/ca.crt
+
+peer chaincode install -n mycc -v 1.0 -l node -p /opt/gopath/src/github.com/chaincode/supply-chain1/node/
+
+========================================================== To Instantiate chaincode ================================================================================
+export CHANNEL_NAME=mychannel
+peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C $CHANNEL_NAME -n mycc -l node -v 1.0 -c '{"Args":["init","a", "100", "b","200"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')"
+
+========================================================== To Upgrade Chaincode  ================================================================================
+export CHANNEL_NAME=mychannel
+peer chaincode upgrade -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C $CHANNEL_NAME -n mycc -l node -v 1.1 -c '{"Args":["init","a", "100", "b","200"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')"

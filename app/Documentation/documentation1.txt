@@ -1,0 +1,161 @@
+                                        ** For Supplier Org - Org1 **
+
+=================================== To register SupplierA user in Org1 and generate JWT token ===================================
+curl -s -X POST http://localhost:3000/users -H "content-type: application/x-www-form-urlencoded" -d 'username=SupplierA&orgName=Org1'
+
+=================================== To register SupplierB user in Org1 and generate JWT token ===================================
+curl -s -X POST http://localhost:3000/users -H "content-type: application/x-www-form-urlencoded" -d 'username=SupplierB&orgName=Org1'
+
+=================================== To register SupplierC user in Org1 and generate JWT token ===================================
+curl -s -X POST http://localhost:3000/users -H "content-type: application/x-www-form-urlencoded" -d 'username=SupplierC&orgName=Org1'
+
+                                        ** For OEM/Manufacturer Org - Org2 **
+
+=================================== To register ManufacturerA user in Org2 and generate JWT token ===================================
+curl -s -X POST http://localhost:3000/users -H "content-type: application/x-www-form-urlencoded" -d 'username=ManufacturerA&orgName=Org2'
+
+=================================== To register ManufacturerB user in Org2 and generate JWT token ===================================
+curl -s -X POST http://localhost:3000/users -H "content-type: application/x-www-form-urlencoded" -d 'username=ManufacturerB&orgName=Org2'
+
+                                        ** For Dealer/Distributer Org - Org3 **
+
+=================================== To register DealerA user in Org3 and generate JWT token ===================================
+curl -s -X POST http://localhost:3000/users -H "content-type: application/x-www-form-urlencoded" -d 'username=DealerA&orgName=Org3'
+
+=================================== To register DealerB user in Org3 and generate JWT token ===================================
+curl -s -X POST http://localhost:3000/users -H "content-type: application/x-www-form-urlencoded" -d 'username=DealerB&orgName=Org3'
+
+                                        ** For Customer Org - Org4 **
+
+=================================== To register CustomerA user in Org4 and generate JWT token ===================================
+curl -s -X POST http://localhost:3000/users -H "content-type: application/x-www-form-urlencoded" -d 'username=CustomerA&orgName=Org4'
+
+=================================== To register CustomerB user in Org4 and generate JWT token ===================================
+curl -s -X POST http://localhost:3000/users -H "content-type: application/x-www-form-urlencoded" -d 'username=CustomerB&orgName=Org4'
+
+
+================================ To create channel from Org1 (Supplier Org) ===================================
+(Path is taken from ApplicationModule)
+
+curl -s -X POST \
+  http://localhost:3000/channels \
+  -H "authorization: Bearer {JWT of Supplier A}" \
+  -H "content-type: application/json" \
+  -d '{
+	"channelName":"mychannel",
+	"channelConfigPath":"../../channel-artifacts/channel.tx"
+}'
+
+================================ To join channel from Org1 (Supplier Org) =====================================
+
+curl -s -X POST \
+  http://localhost:3000/channels/mychannel/peers \
+  -H "authorization: Bearer {JWT of Supplier}" \
+  -H "content-type: application/json" \
+  -d '{
+	"peers": ["peer0.org1.example.com","peer1.org1.example.com"]
+}'
+
+================================ To join channel from Org2 (Manufacturer/OEM Org) =====================================
+
+curl -s -X POST \
+  http://localhost:3000/channels/mychannel/peers \
+  -H "authorization: Bearer {JWT of Manufacturer}" \
+  -H "content-type: application/json" \
+  -d '{
+	"peers": ["peer0.org2.example.com","peer1.org2.example.com"]
+}'
+
+================================ To join channel from Org3 (Dealer/Distributer Org) =====================================
+
+curl -s -X POST \
+  http://localhost:3000/channels/mychannel/peers \
+  -H "authorization: Bearer {JWT of Dealer}" \
+  -H "content-type: application/json" \
+  -d '{
+	"peers": ["peer0.org3.example.com","peer1.org3.example.com"]
+}'
+
+================================ To join channel from Org4 (Dealer/Distributer Org) =====================================
+
+curl -s -X POST \
+  http://localhost:3000/channels/mychannel/peers \
+  -H "authorization: Bearer {JWT of Customer}" \
+  -H "content-type: application/json" \
+  -d '{
+	"peers": ["peer0.org4.example.com","peer1.org4.example.com"]
+}'
+
+===================================== Install chaincode on Peers of Org1  ===================================================
+
+curl -s -X POST \
+  http://localhost:3000/chaincodes \
+  -H "authorization: Bearer {JWT of Supplier}" \
+  -H "content-type: application/json" \
+  -d '{
+	"peers": ["peer0.org1.example.com","peer1.org1.example.com"],
+	"chaincodeName":"chaincode1",
+	"chaincodePath":"github.com/chaincode/supply-chain1/node",
+	"chaincodeType": "node",
+	"chaincodeVersion":"v1"
+}'
+
+===================================== Install chaincode on Peers of Org2  ===================================================
+
+curl -s -X POST \
+  http://localhost:3000/chaincodes \
+  -H "authorization: Bearer {JWT of Manufacturer}" \
+  -H "content-type: application/json" \
+  -d '{
+	"peers": ["peer0.org2.example.com","peer1.org2.example.com"],
+	"chaincodeName":"chaincode1",
+	"chaincodePath":"github.com/chaincode/supply-chain1/node",
+	"chaincodeType": "node",
+	"chaincodeVersion":"v1"
+}'
+
+===================================== Install chaincode on Peers of Org3  ===================================================
+
+curl -s -X POST \
+  http://localhost:3000/chaincodes \
+  -H "authorization: Bearer {JWT of Dealer}" \
+  -H "content-type: application/json" \
+  -d '{
+	"peers": ["peer0.org3.example.com","peer1.org3.example.com"],
+	"chaincodeName":"chaincode1",
+	"chaincodePath":"github.com/chaincode/supply-chain1/node",
+	"chaincodeType": "node",
+	"chaincodeVersion":"v1"
+}'
+
+===================================== Install chaincode on Peers of Org4  ===================================================
+
+curl -s -X POST \
+  http://localhost:3000/chaincodes \
+  -H "authorization: Bearer {JWT of Customer}" \
+  -H "content-type: application/json" \
+  -d '{
+	"peers": ["peer0.org4.example.com","peer1.org4.example.com"],
+	"chaincodeName":"chaincode1",
+	"chaincodePath":"github.com/chaincode/supply-chain1/node",
+	"chaincodeType": "node",
+	"chaincodeVersion":"v1"
+}'
+
+==================================== Instantiate Chaincode  =======================================================================================================
+
+curl -s -X POST \
+  http://localhost:3000/channels/mychannel/chaincodes \
+  -H "authorization: Bearer { JWT TOken }" \
+  -H "content-type: application/json" \
+  -d '{
+	"chaincodeName":"chaincode1",
+	"chaincodeVersion":"v1",
+	"chaincodeType": "node",
+	"args":[""]
+}'
+
+
+
+
+
