@@ -1,5 +1,5 @@
 {
-	"name": "onBoardInventoryNode",
+	"name": "On Board Inventory",
 	"version": "1.0.0",
 	"description": "onBoardInventoryNode chaincode implemented in node.js",
 	"engines": {
