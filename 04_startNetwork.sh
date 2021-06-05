@@ -1,7 +1,9 @@
-./destroyNetwork.sh
+./05_destroyNetwork.sh
 
-./generateCertificates.sh
+./01_generateCertificates.sh
 
-./startContainers.sh
+./02_startContainers.sh
 
-./createChannel.sh
+./03_createChannel.sh
+
+echo "=================================== Fabric Network is successfully up and running... ========================================="
