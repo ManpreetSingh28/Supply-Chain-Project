@@ -1,0 +1,24 @@
+Before running any shell script, please read the following:
+
+## All commands to be run from the root of the project. In our case root folder is 'hyperhack' ##
+
+1. Provide permissions to all the scropts before running it.
+    RUN: sudo chmod +x {SCRIPT_NAMEs}
+
+2. 01_generateCertificates.sh - This script to be run providing one parameter i.e CHANNEL_NAME
+    RUN: ./01_generateCertificates.sh mychannel
+
+3. 02_startContainers.sh - This script is to be run directly without providing any parameter.
+    RUN: ./02_startContainers.sh
+
+4. 03_createChannel.sh - This script to be run providing 1 parameter i.e CHANNEL_NAME
+    RUN: ./03_createChannel mychannel
+
+5. 04_install_instantiateChaincode.sh - This script to be run providing 2 parameters. First one is CHANNEL_VERSION & second one is CHANNEL_NAME (same that was provided during generating certificates).
+    RUN: ./04_install_instantiateChaincode.sh 1 mychannel
+
+6. 05_install_upgradeChaincode.sh - This script to be run providing 2 parameters. First one is CHANNEL_VERSION & second one is CHANNEL_NAME (same that was provided during generating certificates).
+    RUN: ./05_install_upgradeChaincode.sh 1.1 mychannel
+
+7. 06_destroyNetwork.sh - This script to be run directly without providing any parameter.
+    RUN: ./06_destroyNetwork.sh
