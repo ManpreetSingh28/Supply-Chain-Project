@@ -24,7 +24,7 @@ fi
 
 # Generate Channel Tx
 
-export CHANNEL_NAME=mychannel
+export CHANNEL_NAME="$1"
 echo "================================ Generating Channel Tx ================================"
 ./bin/configtxgen -profile MultiOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
 if [ "$?" -ne 0 ]; then
