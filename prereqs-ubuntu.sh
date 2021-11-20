@@ -58,7 +58,7 @@ sudo apt-get -y install build-essential libssl-dev
 
 # Execute nvm installation script
 echo "# Executing nvm installation script"
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39/install.sh | bash
 
 # Set up nvm environment without restarting the shell
 export NVM_DIR="${HOME}/.nvm"
@@ -101,7 +101,7 @@ sudo usermod -aG docker $(whoami)
 
 # Install docker compose
 echo "# Installing Docker-Compose"
-sudo curl -L "https://github.com/docker/compose/releases/download/1.13.0/docker-compose-$(uname -s)-$(uname -m)" \
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" \
     -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
